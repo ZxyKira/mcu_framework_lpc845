@@ -1,0 +1,6 @@
+[submodule "reference/mcu_framework"]
+	path = reference/mcu_framework
+	url = https://github.com/ZxyKira/mcu_framework.git
+[submodule "reference/nxp_lpc845_driver"]
+	path = reference/nxp_lpc845_driver
+	url = https://github.com/ZxyKira/nxp_lpc845_driver.git
