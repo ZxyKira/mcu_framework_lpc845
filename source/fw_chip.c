@@ -84,7 +84,7 @@ void fw_chip_initCoreClock(uint32_t clock){
  */
 void fw_chip_iocon_pinMuxSet(uint8_t pin, uint32_t modefunc){
 	assert(pin < FW_DEFINE_IO_MAX_PIN_NUMB);
-	IOCON_PinMuxSet(IOCON, fw_io_ioconMap[pin], modefunc);
+	IOCON_PinMuxSet(IOCON, fw_chip_io_ioconMap[pin], modefunc);
 }
 
 /* *****************************************************************************************

@@ -53,7 +53,6 @@ fw_spim_entity_handle_t fw_spim_getEntity(fw_spim_handle_t handle, void* memory,
 
 uint32_t getMaxSSEL(fw_spim_handle_t handle){
 	
-	
 }
 
 
