@@ -9,6 +9,8 @@
 #include "fw_lpc845.h"
 
 extern fw_io_handle_t io;
+extern fw_io_pin_handle_t pin[8];
+
 
 void delay(uint32_t us){
 	uint32_t i;
@@ -19,9 +21,19 @@ void delay(uint32_t us){
 		__NOP();
 	}
 }
+extern void fw_io_pin_setToggle(fw_io_pin_handle_t handle);
 
 
 void loop(){
-	io.API->toggle(&io, 1, 0xFFFFFFFF);
-	delay(1000000);
+	int i = 0;
+	while(1){
+		pin[0].API->setToggle(pin[0]);
+		pin[0].API->setToggle(pin[0]);
+		pin[0].API->setToggle(pin[0]);
+		pin[0].API->setToggle(pin[0]);
+		pin[0].API->setToggle(pin[0]);
+		pin[0].API->setToggle(pin[0]);
+		pin[0].API->setToggle(pin[0]);
+		pin[0].API->setToggle(pin[0]);
+	}
 }

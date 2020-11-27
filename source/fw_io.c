@@ -18,13 +18,18 @@
 #define fw_io_maxOfPortNumb 2
 
 /* *****************************************************************************************
+ *    Macro
+ */
+#define fw_io_getBase(handle) ((GPIO_Type*)handle.memory)
+
+/* *****************************************************************************************
  *    Type/Structure
  */ 
- 
+
 /* *****************************************************************************************
  *    Extern Function/Variable
  */
-
+extern const fw_io_pin_api_t fw_io_pin_api;
 /* *****************************************************************************************
  *    Public Variable
  */
@@ -36,10 +41,6 @@
 /* *****************************************************************************************
  *    Inline Function
  */
-static inline GPIO_Type* fw_io_getBase(fw_io_handle_t* handle){
-	return ((fw_io_memory_t*)handle->memory)->base;
-}
-
 
 /* *****************************************************************************************
  *    Private Function
@@ -48,42 +49,48 @@ static inline GPIO_Type* fw_io_getBase(fw_io_handle_t* handle){
 /* *****************************************************************************************
  *    Public Function
  */
-uint32_t fw_io_read(fw_io_handle_t* handle, const uint16_t port){
+uint32_t fw_io_read(fw_io_handle_t handle, const uint16_t port){
 	return GPIO_PortRead(fw_io_getBase(handle), port);
 }
 		
-void fw_io_set(fw_io_handle_t* handle, const uint16_t port, uint32_t mask){
+void fw_io_set(fw_io_handle_t handle, const uint16_t port, uint32_t mask){
 	GPIO_PortSet(fw_io_getBase(handle), port, mask);
 	return;
 }
 		
-void fw_io_clear(fw_io_handle_t* handle, const uint16_t port, uint32_t mask){
+void fw_io_clear(fw_io_handle_t handle, const uint16_t port, uint32_t mask){
 	GPIO_PortClear(fw_io_getBase(handle), port, mask);
   return;
 }
 		
-void fw_io_toggle(fw_io_handle_t* handle, const uint16_t port, uint32_t mask){
+void fw_io_toggle(fw_io_handle_t handle, const uint16_t port, uint32_t mask){
 	GPIO_PortToggle(fw_io_getBase(handle), port, mask);
 	return;
 }
 		
-void fw_io_dir(fw_io_handle_t* handle, const uint16_t port, uint32_t val){
+void fw_io_dir(fw_io_handle_t handle, const uint16_t port, uint32_t val){
 	fw_io_getBase(handle)->DIR[port] = val;
 	return;
 }
 		
-void fw_io_dirClear(fw_io_handle_t* handle, const uint16_t port, uint32_t mask){
+void fw_io_dirClear(fw_io_handle_t handle, const uint16_t port, uint32_t mask){
 	fw_io_getBase(handle)->DIRCLR[port] = mask;
 	return;
 }
 		
-void fw_io_dirSet(fw_io_handle_t* handle, const uint16_t port, uint32_t mask){
+void fw_io_dirSet(fw_io_handle_t handle, const uint16_t port, uint32_t mask){
 	fw_io_getBase(handle)->DIRSET[port] = mask;
 	return;
 }
 
-fw_io_pin_handle_t fw_io_getIoPin(fw_io_handle_t* handle, const uint16_t port, uint32_t pin){
-	
+fw_io_pin_handle_t fw_io_getIoPin(fw_io_handle_t handle, const uint16_t port, uint16_t pin){
+	fw_io_pin_handle_t result;
+	fw_io_pin_memory_t fw_io_pin_memory;
+	result.base = fw_io_getBase(handle);
+	result.API = &fw_io_pin_api;
+	((fw_io_pin_memory_t*)&result.memory)->port = port;
+	((fw_io_pin_memory_t*)&result.memory)->pin = pin;
+	return result;
 }
 
 /* *****************************************************************************************
@@ -97,6 +104,7 @@ const fw_io_api_t fw_io_api = {
 	.dir = fw_io_dir,
 	.dirClear = fw_io_dirClear,
 	.dirSet = fw_io_dirSet,
+	.getIoPin = fw_io_getIoPin
 };
 
 

@@ -392,6 +392,11 @@
               <FileType>1</FileType>
               <FilePath>..\source\fw_io.c</FilePath>
             </File>
+            <File>
+              <FileName>fw_io_pin.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\fw_io_pin.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -688,6 +693,11 @@
               <FileName>fw_chip.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\reference\mcu_framework\include\fw_chip.h</FilePath>
+            </File>
+            <File>
+              <FileName>fw_spim_entity.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\reference\mcu_framework\include\fw_spim_entity.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1079,7 +1089,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -1333,6 +1343,11 @@
               <FileType>1</FileType>
               <FilePath>..\source\fw_io.c</FilePath>
             </File>
+            <File>
+              <FileName>fw_io_pin.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\fw_io_pin.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1422,6 +1437,11 @@
               <FileName>fw_chip.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\reference\mcu_framework\include\fw_chip.h</FilePath>
+            </File>
+            <File>
+              <FileName>fw_spim_entity.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\reference\mcu_framework\include\fw_spim_entity.h</FilePath>
             </File>
           </Files>
         </Group>

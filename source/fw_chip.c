@@ -11,6 +11,7 @@
 #include "LPC845.h"
 #include "fsl_power.h"
 #include "fsl_clock.h"
+#include "fsl_iocon.h"
 
 #include "fw_chip.h"
 #include "fw_define_type.h"
@@ -23,39 +24,31 @@
 /* *****************************************************************************************
  *    Type/Structure
  */ 
- 
+
 /* *****************************************************************************************
  *    Extern Function/Variable
  */
 extern const fw_define_system_t fw_define_system;
-extern const fw_define_io_t fw_define_io[FW_DEFINE_IO_NUMB];
 
+extern fw_io_handle_t fw_chip_construct_io(uint32_t ch, void* memory);
+extern fw_spim_handle_t fw_chip_construct_spim(uint32_t ch, void* memory);
+extern fw_usart_handle_t fw_chip_construct_usart(uint32_t ch, void* memory);
 /* *****************************************************************************************
  *    Public Variable
  */
-
+const uint8_t fw_chip_io_ioconMap[FW_DEFINE_IO_MAX_PIN_NUMB] = {
+//00  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31
+	17, 11,  6,  5,  4,  3, 16, 15, 14, 13,  8,  7,  2,  1, 18, 10,  9,  0, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 50, 51, 35,
+//32  33  34  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53
+	36, 37, 38, 41, 42, 43, 46, 49, 31, 32, 55, 54, 33, 34, 39, 40, 44, 45, 47, 48, 52, 53,
+};
 /* *****************************************************************************************
  *    Private Variable
  */
-static void fw_chip_io_init(void){
-	CLOCK_EnableClock(kCLOCK_Gpio0);
-	CLOCK_EnableClock(kCLOCK_Gpio1);
-	CLOCK_EnableClock(kCLOCK_GpioInt);
-	CLOCK_EnableClock(kCLOCK_Iocon);
-	RESET_PeripheralReset(kGPIO0_RST_N_SHIFT_RSTn);
-	RESET_PeripheralReset(kGPIO1_RST_N_SHIFT_RSTn);
-	RESET_PeripheralReset(kGPIOINT_RST_N_SHIFT_RSTn);
-	RESET_PeripheralReset(kIOCON_RST_N_SHIFT_RSTn);
-}
-
 
 /* *****************************************************************************************
  *    Inline Function
  */
-static inline const fw_define_io_t* const fw_io_getHwConf(uint8_t ch){
-	assert(ch < FW_DEFINE_IO_NUMB);
-	return &fw_define_io[ch];
-}
 
  /* *****************************************************************************************
  *    Private Function
@@ -86,9 +79,16 @@ void fw_chip_initCoreClock(uint32_t clock){
 	/*!< Set SystemCoreClock variable. */
 	SystemCoreClock = clock;	
 }
- 
 /* *****************************************************************************************
  *    Public Function
+ */
+void fw_chip_iocon_pinMuxSet(uint8_t pin, uint32_t modefunc){
+	assert(pin < FW_DEFINE_IO_MAX_PIN_NUMB);
+	IOCON_PinMuxSet(IOCON, fw_io_ioconMap[pin], modefunc);
+}
+
+/* *****************************************************************************************
+ *    API Function
  */
 void fw_chip_chipInit(void){
 	fw_chip_initCoreClock(fw_define_system.coreClock);
@@ -96,29 +96,6 @@ void fw_chip_chipInit(void){
 
 bool fw_chip_setClock(uint32_t clock){
 	fw_chip_initCoreClock(clock);
-}
-
-fw_io_handle_t fw_chip_construct_io(uint32_t ch, void* memory){
-	fw_io_handle_t result;
-	result.memory = memory;
-	result.API = 0x0;
-	
-	if(ch > FW_DEFINE_IO_NUMB)
-		return result;
-	
-	fw_chip_io_init();
-	result.API = & fw_io_api;
-	((fw_io_memory_t*)result.memory)->base = fw_io_getHwConf(ch)->base;
-	
-	return result;
-}
-
-fw_spim_handle_t fw_chip_construct_spim(uint32_t ch, void* memory){
-	
-}
-
-fw_usart_handle_t fw_chip_construct_usart(uint32_t ch, void* memory){
-	
 }
 
 /* *****************************************************************************************
