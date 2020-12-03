@@ -85,8 +85,13 @@ static void fw_spim_setPin(const fw_define_spi_t* const pHwConf, const fw_spi_hw
  *    Private Function
  */ 
 static void fw_spim_callback_handle(SPI_Type *base, spi_master_handle_t *handle, status_t status, void *userData){
-	fw_spim_entity_handle_t* entity = userData;
+	fw_spim_entity_handle_t* entityHandle = userData;
+	fw_spim_entity_memory_t* entityMempry = entityHandle->memory;
 	
+	if(entityMempry->Event.onXferFinish != NULL){
+		entityMempry->Event.onXferFinish(*entityHandle);
+	}
+
 	return;
 }
 /* *****************************************************************************************

@@ -53,6 +53,10 @@
  */
  
 /* *****************************************************************************************
+ *    IRQHandler Function
+ */
+ 
+/* *****************************************************************************************
  *    Private Function
  */ 
 static void fw_spim_entity_setSSEL(const fw_define_spi_t* pHwConf, const fw_spi_hwInfo_t* pHwInfo, uint8_t sselNumb){
@@ -94,9 +98,6 @@ bool fw_spim_entity_isBusy(fw_spim_entity_handle_t handle){
 		return true;
 	else
 		return false;
-	
-	
-	
 }
 
 bool fw_spim_entity_xfer(fw_spim_entity_handle_t handle, fw_spim_entity_xfer_t *xfer){
