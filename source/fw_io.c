@@ -29,7 +29,7 @@
 /* *****************************************************************************************
  *    Extern Function/Variable
  */
-extern const fw_io_pin_api_t fw_io_pin_api;
+extern const fw_io_entity_api_t fw_io_entity_api;
 /* *****************************************************************************************
  *    Public Variable
  */
@@ -44,11 +44,31 @@ extern const fw_io_pin_api_t fw_io_pin_api;
 
 /* *****************************************************************************************
  *    Private Function
- */
+ */	
 
 /* *****************************************************************************************
  *    Public Function
  */
+bool fw_io_init(fw_io_handle_t handle){
+	CLOCK_EnableClock(kCLOCK_Gpio0);
+	CLOCK_EnableClock(kCLOCK_Gpio1);
+	CLOCK_EnableClock(kCLOCK_GpioInt);
+	CLOCK_EnableClock(kCLOCK_Iocon);
+	RESET_PeripheralReset(kGPIO0_RST_N_SHIFT_RSTn);
+	RESET_PeripheralReset(kGPIO1_RST_N_SHIFT_RSTn);
+	RESET_PeripheralReset(kGPIOINT_RST_N_SHIFT_RSTn);
+	RESET_PeripheralReset(kIOCON_RST_N_SHIFT_RSTn);
+	return true;
+}
+ 
+bool fw_io_deinit(fw_io_handle_t handle){
+	CLOCK_DisableClock(kCLOCK_Gpio0);
+	CLOCK_DisableClock(kCLOCK_Gpio1);
+	CLOCK_DisableClock(kCLOCK_GpioInt);
+	CLOCK_DisableClock(kCLOCK_Iocon);
+	return true;
+}
+
 uint32_t fw_io_read(fw_io_handle_t handle, const uint16_t port){
 	return GPIO_PortRead(fw_io_getBase(handle), port);
 }
@@ -83,13 +103,13 @@ void fw_io_dirSet(fw_io_handle_t handle, const uint16_t port, uint32_t mask){
 	return;
 }
 
-fw_io_pin_handle_t fw_io_getIoPin(fw_io_handle_t handle, const uint16_t port, uint16_t pin){
-	fw_io_pin_handle_t result;
-	fw_io_pin_memory_t fw_io_pin_memory;
+fw_io_entity_handle_t fw_io_getEntity(fw_io_handle_t handle, void* memory, const uint16_t port, uint16_t pin){
+	fw_io_entity_handle_t result;
+	fw_io_entity_memory_t fw_io_pin_memory;
 	result.base = fw_io_getBase(handle);
-	result.API = &fw_io_pin_api;
-	((fw_io_pin_memory_t*)&result.memory)->port = port;
-	((fw_io_pin_memory_t*)&result.memory)->pin = pin;
+	result.API = &fw_io_entity_api;
+	((fw_io_entity_memory_t*)&result.memory)->port = port;
+	((fw_io_entity_memory_t*)&result.memory)->pin = pin;
 	return result;
 }
 
@@ -97,6 +117,8 @@ fw_io_pin_handle_t fw_io_getIoPin(fw_io_handle_t handle, const uint16_t port, ui
  *    API Link
  */
 const fw_io_api_t fw_io_api = {
+	.init  =fw_io_init,
+	.deinit = fw_io_deinit,
 	.read = fw_io_read,
 	.set = fw_io_set,
 	.clear = fw_io_clear,
@@ -104,7 +126,7 @@ const fw_io_api_t fw_io_api = {
 	.dir = fw_io_dir,
 	.dirClear = fw_io_dirClear,
 	.dirSet = fw_io_dirSet,
-	.getIoPin = fw_io_getIoPin
+	.getEntity = fw_io_getEntity
 };
 
 

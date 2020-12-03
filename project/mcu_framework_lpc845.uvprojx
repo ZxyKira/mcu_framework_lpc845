@@ -397,6 +397,31 @@
               <FileType>1</FileType>
               <FilePath>..\source\fw_io_pin.c</FilePath>
             </File>
+            <File>
+              <FileName>fw_chip_construct_io.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\fw_chip_construct_io.c</FilePath>
+            </File>
+            <File>
+              <FileName>fw_chip_construct_spim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\fw_chip_construct_spim.c</FilePath>
+            </File>
+            <File>
+              <FileName>fw_chip_construct_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\fw_chip_construct_usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>fw_spim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\fw_spim.c</FilePath>
+            </File>
+            <File>
+              <FileName>fw_spim_entity.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\fw_spim_entity.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -670,14 +695,19 @@
           </GroupOption>
           <Files>
             <File>
+              <FileName>fw_chip.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\reference\mcu_framework\include\fw_chip.h</FilePath>
+            </File>
+            <File>
               <FileName>fw_io.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\reference\mcu_framework\include\fw_io.h</FilePath>
             </File>
             <File>
-              <FileName>fw_io_pin.h</FileName>
+              <FileName>fw_io_entity.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\reference\mcu_framework\include\fw_io_pin.h</FilePath>
+              <FilePath>..\reference\mcu_framework\include\fw_io_entity.h</FilePath>
             </File>
             <File>
               <FileName>fw_spim.h</FileName>
@@ -685,19 +715,14 @@
               <FilePath>..\reference\mcu_framework\include\fw_spim.h</FilePath>
             </File>
             <File>
-              <FileName>fw_usart.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\reference\mcu_framework\include\fw_usart.h</FilePath>
-            </File>
-            <File>
-              <FileName>fw_chip.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\reference\mcu_framework\include\fw_chip.h</FilePath>
-            </File>
-            <File>
               <FileName>fw_spim_entity.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\reference\mcu_framework\include\fw_spim_entity.h</FilePath>
+            </File>
+            <File>
+              <FileName>fw_usart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\reference\mcu_framework\include\fw_usart.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1348,6 +1373,31 @@
               <FileType>1</FileType>
               <FilePath>..\source\fw_io_pin.c</FilePath>
             </File>
+            <File>
+              <FileName>fw_chip_construct_io.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\fw_chip_construct_io.c</FilePath>
+            </File>
+            <File>
+              <FileName>fw_chip_construct_spim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\fw_chip_construct_spim.c</FilePath>
+            </File>
+            <File>
+              <FileName>fw_chip_construct_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\fw_chip_construct_usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>fw_spim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\fw_spim.c</FilePath>
+            </File>
+            <File>
+              <FileName>fw_spim_entity.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\fw_spim_entity.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1414,14 +1464,19 @@
           <GroupName>mcu_framework</GroupName>
           <Files>
             <File>
+              <FileName>fw_chip.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\reference\mcu_framework\include\fw_chip.h</FilePath>
+            </File>
+            <File>
               <FileName>fw_io.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\reference\mcu_framework\include\fw_io.h</FilePath>
             </File>
             <File>
-              <FileName>fw_io_pin.h</FileName>
+              <FileName>fw_io_entity.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\reference\mcu_framework\include\fw_io_pin.h</FilePath>
+              <FilePath>..\reference\mcu_framework\include\fw_io_entity.h</FilePath>
             </File>
             <File>
               <FileName>fw_spim.h</FileName>
@@ -1429,19 +1484,14 @@
               <FilePath>..\reference\mcu_framework\include\fw_spim.h</FilePath>
             </File>
             <File>
-              <FileName>fw_usart.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\reference\mcu_framework\include\fw_usart.h</FilePath>
-            </File>
-            <File>
-              <FileName>fw_chip.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\reference\mcu_framework\include\fw_chip.h</FilePath>
-            </File>
-            <File>
               <FileName>fw_spim_entity.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\reference\mcu_framework\include\fw_spim_entity.h</FilePath>
+            </File>
+            <File>
+              <FileName>fw_usart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\reference\mcu_framework\include\fw_usart.h</FilePath>
             </File>
           </Files>
         </Group>

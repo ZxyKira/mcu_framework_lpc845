@@ -28,7 +28,7 @@
 fw_io_handle_t io;
 fw_io_memory_t ioMemory;
 
-fw_io_pin_handle_t pin[8];
+fw_io_entity_handle_t pin[8];
 
 /*****************************************************************************
  *	Public Function
@@ -37,10 +37,13 @@ fw_io_pin_handle_t pin[8];
 void start(){
 	fw_chip_api.chipInit();
 	io = fw_chip_api.Construct.io(0, &ioMemory);
+	
+	io.API->init(io);
+	
 	io.API->dir(io, 1, 0xFFFFFFFF);
 	int i;
 	for(i=0; i<8; i++){
-		pin[i] = io.API->getIoPin(io, 1, 8+i);
+		pin[i] = io.API->getEntity(io, NULL, 1, i);
 	}
 }
 

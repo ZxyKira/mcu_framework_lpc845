@@ -49,23 +49,23 @@
 /* *****************************************************************************************
  *    Public Function
  */
-void fw_io_pin_setValue(fw_io_pin_handle_t handle, bool val){
+void fw_io_pin_setValue(fw_io_entity_handle_t handle, bool val){
 	fw_io_pin_getBase(handle)->B[fw_io_pin_getPort(handle)][fw_io_pin_getPin(handle)] = val;
 }
 
-void fw_io_pin_setHigh(fw_io_pin_handle_t handle){
+void fw_io_pin_setHigh(fw_io_entity_handle_t handle){
 	fw_io_pin_getBase(handle)->B[fw_io_pin_getPort(handle)][fw_io_pin_getPin(handle)] = 1;
 }
 	
-void fw_io_pin_setLow(fw_io_pin_handle_t handle){
+void fw_io_pin_setLow(fw_io_entity_handle_t handle){
 	fw_io_pin_getBase(handle)->B[fw_io_pin_getPort(handle)][fw_io_pin_getPin(handle)] = 0;
 }
 		
-void fw_io_pin_setToggle(fw_io_pin_handle_t handle){
+void fw_io_pin_setToggle(fw_io_entity_handle_t handle){
 	fw_io_pin_getBase(handle)->NOT[fw_io_pin_getPort(handle)] |= (1 << fw_io_pin_getPin(handle));
 }
 			
-void fw_io_pin_setDir(fw_io_pin_handle_t handle, bool dir){
+void fw_io_pin_setDir(fw_io_entity_handle_t handle, bool dir){
 	(dir) ? 
 	/* set pin output. */
 	(fw_io_pin_getBase(handle)->DIR[fw_io_pin_getPort(handle)] |=  (1 << fw_io_pin_getPin(handle))): 
@@ -73,26 +73,26 @@ void fw_io_pin_setDir(fw_io_pin_handle_t handle, bool dir){
 	(fw_io_pin_getBase(handle)->DIR[fw_io_pin_getPort(handle)] &= ~(1 << fw_io_pin_getPin(handle)));
 }
 				
-void fw_io_pin_setInput(fw_io_pin_handle_t handle){
+void fw_io_pin_setInput(fw_io_entity_handle_t handle){
 	fw_io_pin_getBase(handle)->DIR[fw_io_pin_getPort(handle)] &= ~(1 << fw_io_pin_getPin(handle));	
 }
 
-void fw_io_pin_setOutput(fw_io_pin_handle_t handle){
+void fw_io_pin_setOutput(fw_io_entity_handle_t handle){
 	fw_io_pin_getBase(handle)->DIR[fw_io_pin_getPort(handle)] |=  (1 << fw_io_pin_getPin(handle));
 }
 
-bool fw_io_pin_getValue(fw_io_pin_handle_t handle){
+bool fw_io_pin_getValue(fw_io_entity_handle_t handle){
 	return (bool)GPIO_PinRead(GPIO, fw_io_pin_getPort(handle), fw_io_pin_getPin(handle));
 }
 
-bool fw_io_pin_getDir(fw_io_pin_handle_t handle){
+bool fw_io_pin_getDir(fw_io_entity_handle_t handle){
 	return (fw_io_pin_getBase(handle)->DIR[fw_io_pin_getPort(handle)] & (1 << fw_io_pin_getPin(handle)));
 }
 
 /* *****************************************************************************************
  *    API Link
  */
-const fw_io_pin_api_t fw_io_pin_api = {
+const fw_io_entity_api_t fw_io_entity_api = {
 	.setValue 	= fw_io_pin_setValue,
 	.setHigh 		= fw_io_pin_setHigh,
 	.setLow 		= fw_io_pin_setLow,

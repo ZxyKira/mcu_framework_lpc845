@@ -21,7 +21,7 @@ extern "C"{
 /* *****************************************************************************************
  *    Type/Structure
  */ 
-typedef struct _fw_spim_hwInfo_t{
+typedef struct _fw_spi_hwInfo_t{
 	uint32_t maxOfHwSselNumb;
 	clock_select_t clockSel;
 	struct{
@@ -30,7 +30,7 @@ typedef struct _fw_spim_hwInfo_t{
 		swm_select_movable_t sck;
 		swm_select_movable_t ssel[4];
 	}pinMoveable;
-}fw_spim_hwInfo_t;
+}fw_spi_hwInfo_t;
 
 
 /* *****************************************************************************************
