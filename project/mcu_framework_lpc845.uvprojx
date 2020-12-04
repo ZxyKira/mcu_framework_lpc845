@@ -16,7 +16,7 @@
         <TargetCommonOption>
           <Device>LPC845M301JBD64</Device>
           <Vendor>NXP</Vendor>
-          <PackID>NXP.LPC845_DFP.12.0.0</PackID>
+          <PackID>NXP.LPC845_DFP.12.2.0</PackID>
           <PackURL>http://mcuxpresso.nxp.com/cmsis_pack/repo/</PackURL>
           <Cpu>IRAM(0x10003fe0,0x20) IRAM2(0x10000000,0x3fe0) IROM(0x00000000,0x010000) CPUTYPE("Cortex-M0+") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -997,7 +997,7 @@
         <TargetCommonOption>
           <Device>LPC845M301JBD64</Device>
           <Vendor>NXP</Vendor>
-          <PackID>NXP.LPC845_DFP.12.0.0</PackID>
+          <PackID>NXP.LPC845_DFP.12.2.0</PackID>
           <PackURL>http://mcuxpresso.nxp.com/cmsis_pack/repo/</PackURL>
           <Cpu>IRAM(0x10003fe0,0x20) IRAM2(0x10000000,0x3fe0) IROM(0x00000000,0x010000) CPUTYPE("Cortex-M0+") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -1293,7 +1293,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>

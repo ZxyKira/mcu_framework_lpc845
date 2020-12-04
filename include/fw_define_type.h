@@ -15,6 +15,7 @@
 #define FW_DEFINE_IO_NUMB 1
 #define FW_DEFINE_USART_NUMB 5
 #define FW_DEFINE_SPI_NUMB 2
+#define FW_DEFINE_SPI_SSEL_NUMB 8
 
 /*-----------------------------------------------------------------------------------------
  *   System

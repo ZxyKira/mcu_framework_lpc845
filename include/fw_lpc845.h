@@ -47,7 +47,7 @@ typedef struct _fw_spim_memory_t{
 	SPI_Type* base;
 	const void* hwConfig;
 	const void* hwInfo;
-	void* onHandle;
+	fw_spim_entity_handle_t entityHandle;
 	spi_master_handle_t handle;
 }fw_spim_memory_t;
 

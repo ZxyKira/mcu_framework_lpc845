@@ -45,6 +45,19 @@ extern void fw_chip_iocon_pinMuxSet(uint8_t pin, uint32_t modefunc);
 /* *****************************************************************************************
  *    Private Variable
  */
+ 
+static void fw_spim_setSselIo(uint8_t pin){
+	if(!(pin < FW_DEFINE_IO_MAX_PIN_NUMB))
+		return;
+	
+	uint8_t port = pin>>5;
+	pin &= 0x1F;
+	
+	
+	GPIO->DIR[port] |=  (1 << pin);
+	GPIO->B[port][pin] = 1;
+}
+ 
 static void fw_spim_setPin(const fw_define_spi_t* const pHwConf, const fw_spi_hwInfo_t* const pHwInfo){
 	int i;
 	
@@ -67,11 +80,15 @@ static void fw_spim_setPin(const fw_define_spi_t* const pHwConf, const fw_spi_hw
 		fw_chip_iocon_pinMuxSet(pHwConf->Pin.mosi, pinMod);
 	}
 	
-	for(i=0; i<pHwInfo->maxOfHwSselNumb; i++){
+	for(i=0; i<pHwInfo->maxOfHwSselNumb; i++){		
 		if(pHwConf->Pin.ssel[i] < FW_DEFINE_IO_MAX_PIN_NUMB){
 			SWM_SetMovablePinSelect(SWM0, pHwInfo->pinMoveable.ssel[i], (swm_port_pin_type_t)(pHwConf->Pin.ssel[i]));
 			fw_chip_iocon_pinMuxSet(pHwConf->Pin.ssel[i], pinMod);
 		}
+	}
+	
+	for(i=0; i<FW_DEFINE_SPI_SSEL_NUMB; i++){
+		fw_spim_setSselIo(pHwConf->Pin.ssel[i]);
 	}
 	
 	CLOCK_DisableClock(kCLOCK_Swm);
@@ -85,11 +102,15 @@ static void fw_spim_setPin(const fw_define_spi_t* const pHwConf, const fw_spi_hw
  *    Private Function
  */ 
 static void fw_spim_callback_handle(SPI_Type *base, spi_master_handle_t *handle, status_t status, void *userData){
-	fw_spim_entity_handle_t* entityHandle = userData;
-	fw_spim_entity_memory_t* entityMempry = entityHandle->memory;
+	if(userData == 0)
+		return;
 	
-	if(entityMempry->Event.onXferFinish != NULL){
-		entityMempry->Event.onXferFinish(*entityHandle);
+	fw_spim_entity_handle_t* entityHandle = userData;
+	fw_spim_entity_memory_t* entityMemory = entityHandle->memory;
+
+	
+	if(entityMemory->Event.onXferFinish != NULL){
+		entityMemory->Event.onXferFinish(*entityHandle);
 	}
 
 	return;
@@ -117,7 +138,7 @@ bool fw_spim_init(fw_spim_handle_t handle){
 	SPI_MasterTransferCreateHandle(fw_spim_getBase(handle), 
 	                               &fw_spim_getMemory(handle)->handle, 
 	                               fw_spim_callback_handle, 
-	                               0x0);
+	                               &fw_spim_getMemory(handle)->entityHandle);
 	
 	fw_spim_setPin(fw_spim_getFwConfig(handle), fw_spim_getFwInfo(handle));
 

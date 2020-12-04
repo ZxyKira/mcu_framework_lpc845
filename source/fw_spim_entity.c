@@ -70,13 +70,14 @@ static void fw_spim_entity_setSSEL(const fw_define_spi_t* pHwConf, const fw_spi_
 		uint32_t sselMask = ~(1 << (16 + (pHwInfo->maxOfHwSselNumb-1)));
 		sselMask &= 0x000F0000;
 		
-		/* Set hardware ssel */
-		hwBase->TXCTL |= sselMask;
+
 		
 		CLOCK_EnableClock(kCLOCK_Swm);
-		SWM_SetMovablePinSelect(SWM0, pHwInfo->pinMoveable.ssel[3], (swm_port_pin_type_t)(pHwConf->Pin.ssel[sselNumb]));
+		SWM_SetMovablePinSelect(SWM0, pHwInfo->pinMoveable.ssel[pHwInfo->maxOfHwSselNumb-1], (swm_port_pin_type_t)(pHwConf->Pin.ssel[sselNumb]));
 		CLOCK_DisableClock(kCLOCK_Swm);
 		
+		/* Set hardware ssel */
+		hwBase->TXCTL |= sselMask;
 		
 	}else{
 		/* Set hardware ssel */
@@ -94,7 +95,7 @@ static void fw_spim_entity_setSSEL(const fw_define_spi_t* pHwConf, const fw_spi_
  *    API Function
  */
 bool fw_spim_entity_isBusy(fw_spim_entity_handle_t handle){
-	if(fw_sipm_entity_getBaseMemory(handle)->handle.state != kStatus_SPI_Busy)
+	if(fw_sipm_entity_getBaseMemory(handle)->handle.state == kStatus_SPI_Busy)
 		return true;
 	else
 		return false;
@@ -132,7 +133,7 @@ bool fw_spim_entity_xfer(fw_spim_entity_handle_t handle, fw_spim_entity_xfer_t *
 		.configFlags = 	kSPI_EndOfTransfer
 	};
 	
-	fw_sipm_entity_getBaseMemory(handle)->onHandle = &handle;
+	fw_sipm_entity_getBaseMemory(handle)->entityHandle = handle;
 	
 		/* Create spi master transfer handle  */
 	status_t handleResult = SPI_MasterTransferNonBlocking(hwBase, 

@@ -430,7 +430,7 @@
 //   <e>SPI0
 //   <i> Enables SPI0.
 #ifndef FW_DEFINE_SPI0_ENABLE
-#define FW_DEFINE_SPI0_ENABLE 0
+#define FW_DEFINE_SPI0_ENABLE 1
 #endif
 
 //   <o>Hardware Base Address <0x0-0xFFFFFFFF>

@@ -33,6 +33,8 @@
  */
 extern const fw_define_spi_t fw_define_spi[FW_DEFINE_SPI_NUMB];
 
+extern const fw_spim_api_t fw_spim_api;
+
 /* *****************************************************************************************
  *    Public Variable
  */
@@ -91,9 +93,12 @@ fw_spim_handle_t fw_chip_construct_spim(uint32_t ch, void* memory){
 	if(ch >= FW_DEFINE_SPI_NUMB)
 		return result;
 	
+	memset(memory, 0x00 ,sizeof(fw_spim_memory_t));
+	
 	//write mamory point to handle
 	result.memory = memory;
-	memset(memory, 0x00 ,sizeof(fw_spim_memory_t));
+	result.API = &fw_spim_api;
+	
 	
 	//get hardware config
 	((fw_spim_memory_t*)result.memory)->hwInfo = fw_spi_getHwInfo(ch);
